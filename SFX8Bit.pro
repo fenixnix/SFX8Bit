@@ -24,42 +24,45 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    nsfx.cpp \
-    wavenvelope.cpp \
-    wavfilter.cpp \
-    Sfx8Bit.cpp \
-    soundbuffer.cpp \
-    qaudioplayer.cpp \
-    nchiptune.cpp \
-    qmusicinstrument.cpp \
-    formkeyboard.cpp \
-    wavcontour.cpp \
     dialogmusicinstrumenttest.cpp \
-    musicplayer.cpp \
-    nmuse.cpp
+    formkeyboard.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    Chiptune/nmuse.cpp \
+    Chiptune/Sfx8Bit.cpp \
+    Chiptune/wavcontour.cpp \
+    Chiptune/wavenvelope.cpp \
+    Chiptune/wavfilter.cpp \
+    Device/qaudioplayer.cpp \
+    Device/qmusicinstrument.cpp \
+    Device/soundbuffer.cpp \
+    Device/nchiptune.cpp \
+    Chiptune/nwavwriter.cpp
+
+
 
 HEADERS += \
-        mainwindow.h \
-    nsfx.h \
-    wavenvelope.h \
-    wavfilter.h \
-    Sfx8Bit.h \
-    soundbuffer.h \
-    qaudioplayer.h \
-    nchiptune.h \
-    qmusicinstrument.h \
-    formkeyboard.h \
-    wavcontour.h \
     dialogmusicinstrumenttest.h \
-    musicplayer.h \
-    nmuse.h
+    formkeyboard.h \
+    mainwindow.h \
+    Chiptune/nmuse.h \
+    Chiptune/Sfx8Bit.h \
+    Chiptune/wavcontour.h \
+    Chiptune/wavenvelope.h \
+    Chiptune/wavfilter.h \
+    Device/qaudioplayer.h \
+    Device/qmusicinstrument.h \
+    Device/soundbuffer.h \
+    Device/nchiptune.h \
+    Chiptune/nwavwriter.h
+
+
 
 FORMS += \
-        mainwindow.ui \
+    dialogmusicinstrumenttest.ui \
     formkeyboard.ui \
-    dialogmusicinstrumenttest.ui
+    mainwindow.ui
+
 
 DISTFILES +=
 

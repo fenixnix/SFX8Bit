@@ -2,7 +2,7 @@
 #define FORMKEYBOARD_H
 
 #include <QWidget>
-#include "qmusicinstrument.h"
+#include "Device//qmusicinstrument.h"
 
 namespace Ui {
   class FormKeyboard;

@@ -2,7 +2,7 @@
 #define DIALOGMUSICINSTRUMENTTEST_H
 
 #include <QDialog>
-#include "qmusicinstrument.h"
+#include "Device/qmusicinstrument.h"
 
 namespace Ui {
 class DialogMusicInstrumentTest;

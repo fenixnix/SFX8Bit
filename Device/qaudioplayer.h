@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <vector>
 #include "nchiptune.h"
+#include "Chiptune/nwavwriter.h"
 
 using namespace std;
 

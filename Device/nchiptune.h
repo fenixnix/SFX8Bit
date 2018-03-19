@@ -5,9 +5,10 @@
 #include <QAudioFormat>
 #include <QDebug>
 #include <qmath.h>
-#include <wavcontour.h>
+#include "Chiptune/wavcontour.h"
+#include "Device//nchiptune.h"
 
-#include "nsfx.h"
+using namespace std;
 
 class NChipTune: public QIODevice
 {

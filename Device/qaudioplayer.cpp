@@ -1,5 +1,4 @@
 #include "qaudioplayer.h"
-#include "nsfx.h"
 
 QAudioPlayer::QAudioPlayer()
 {
@@ -60,7 +59,7 @@ void QAudioPlayer::ImportData(vector<float> rawData)
 void QAudioPlayer::Save(QString fileName)
 {
   auto data = Export(dataBuffer);
-  NSFX::Save(fileName.toStdString(),data);
+  NWavWriter::Save(fileName.toStdString(),data);
 }
 
 vector<float> QAudioPlayer::Export(QByteArray data)

@@ -92,7 +92,6 @@ void NChipTune::generateData(QString type, int freq, WavContour contour)
       //qDebug()<<"v:"<<v<<"*"<<b<<"*"<<val;
       buffer.append(val);
     }
-  NSFX::Save("tmp.wav",BrToRawData(buffer));
 }
 
 void NChipTune::Pulse()

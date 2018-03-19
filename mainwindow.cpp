@@ -4,12 +4,11 @@
 #include <QSound>
 #include <QFile>
 #include <QAudioOutput>
-#include <soundbuffer.h>
 #include <QBuffer>
-#include "nsfx.h"
-#include "Sfx8Bit.h"
-#include "qaudioplayer.h"
-#include "qmusicinstrument.h"
+#include <Device/soundbuffer.h>
+#include "chiptune/Sfx8Bit.h"
+#include "Device/qaudioplayer.h"
+#include "Device/qmusicinstrument.h"
 
 Sfx8Bit sfx;
 vector<float> wavData;
@@ -38,7 +37,7 @@ void Play(vector<float> rawData){
 void Play(){
   sfx.SynthSample(wavData);
   Play(wavData);
-  NSFX::Save("tmp.wav",wavData);
+  NWavWriter::Save("tmp.wav",wavData);
   //QSound::play("tmp.wav");
 }
 
@@ -82,11 +81,6 @@ void MainWindow::on_Blip_SelectBtn_clicked()
 {
   sfx.Blip_Select();
   Play();
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-
 }
 
 void MainWindow::on_actionKeyboard_triggered()

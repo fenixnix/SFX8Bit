@@ -1,8 +1,8 @@
-#include "nsfx.h"
+#include "nwavwriter.h"
 
 typedef unsigned char bit8;
 
-NSFX::NSFX()
+NWavWriter::NWavWriter()
 {
 
 }
@@ -10,7 +10,7 @@ NSFX::NSFX()
 int wav_bits=8;
 int wav_freq=22050;
 
-void NSFX::Save(string fileName, vector<float> data)
+void NWavWriter::Save(string fileName, vector<float> data)
 {
     ofstream file(fileName,ios::binary);
 

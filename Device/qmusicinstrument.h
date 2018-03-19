@@ -2,8 +2,8 @@
 #define QMUSICINSTRUMENT_H
 
 #include "qaudioplayer.h"
-#include "nmuse.h"
-#include "wavcontour.h"
+#include "Chiptune/nmuse.h"
+#include "Chiptune/wavcontour.h"
 
 class QMusicInstrument
 {

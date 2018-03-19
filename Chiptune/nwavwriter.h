@@ -8,10 +8,10 @@
 
 using namespace std;
 
-class NSFX
+class NWavWriter
 {
 public:
-    NSFX();
+    NWavWriter();
     static void Save(string fileName,vector<float> data);
 };
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>126</width>
-    <height>312</height>
+    <width>185</width>
+    <height>298</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -83,13 +83,6 @@
       </property>
      </spacer>
     </item>
-    <item>
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>PushButton</string>
-      </property>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -97,7 +90,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>126</width>
+     <width>185</width>
      <height>22</height>
     </rect>
    </property>
