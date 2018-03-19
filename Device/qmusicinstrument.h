@@ -26,7 +26,6 @@ public:
   WavContour contour;
   NChipTune chipTune;
   QAudioPlayer player;
-
 };
 
 #endif // QMUSICINSTRUMENT_H

@@ -23,8 +23,7 @@ public:
     int TuneCount();
 
 private:
-    int baseFreq = 440;
-    float step = 1.0594630943592953;
+    int baseFreq = 261;
     vector<int> datas;
     vector<int> tuneMode;
 };

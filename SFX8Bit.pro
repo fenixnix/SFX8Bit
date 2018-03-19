@@ -35,7 +35,6 @@ SOURCES += \
     Chiptune/wavfilter.cpp \
     Device/qaudioplayer.cpp \
     Device/qmusicinstrument.cpp \
-    Device/soundbuffer.cpp \
     Device/nchiptune.cpp \
     Chiptune/nwavwriter.cpp
 
@@ -52,7 +51,6 @@ HEADERS += \
     Chiptune/wavfilter.h \
     Device/qaudioplayer.h \
     Device/qmusicinstrument.h \
-    Device/soundbuffer.h \
     Device/nchiptune.h \
     Chiptune/nwavwriter.h
 

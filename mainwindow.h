@@ -32,8 +32,6 @@ private slots:
 
     void on_Blip_SelectBtn_clicked();
 
-    void on_pushButton_clicked();
-
     void on_actionKeyboard_triggered();
 
     void on_actionTune_Test_triggered();

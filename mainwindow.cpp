@@ -5,7 +5,6 @@
 #include <QFile>
 #include <QAudioOutput>
 #include <QBuffer>
-#include <Device/soundbuffer.h>
 #include "chiptune/Sfx8Bit.h"
 #include "Device/qaudioplayer.h"
 #include "Device/qmusicinstrument.h"

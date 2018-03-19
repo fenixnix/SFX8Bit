@@ -61,10 +61,9 @@ int NMuse::TuneCount()
 void NMuse::Init(int base, int div)
 {
   baseFreq = base;
-  step = pow(2.0f,1.0f/(float)div);
   datas.clear();
   for(int i = 0;i<div;i++){
-      datas.push_back(baseFreq*pow(step,i));
+      datas.push_back(baseFreq*pow(2,(float)i/(float)div));
     }
 }
 
