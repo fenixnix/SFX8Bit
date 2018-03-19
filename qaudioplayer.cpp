@@ -1,4 +1,5 @@
 #include "qaudioplayer.h"
+#include "nsfx.h"
 
 QAudioPlayer::QAudioPlayer()
 {
@@ -56,18 +57,37 @@ void QAudioPlayer::ImportData(vector<float> rawData)
   buffer->open(QIODevice::ReadOnly);
 }
 
+void QAudioPlayer::Save(QString fileName)
+{
+  auto data = Export(dataBuffer);
+  NSFX::Save(fileName.toStdString(),data);
+}
+
+vector<float> QAudioPlayer::Export(QByteArray data)
+{
+  vector<float> outDatas;
+  for(char c :data){
+      outDatas.push_back((float)c/127.0f);
+    }
+}
+
+void QAudioPlayer::Import(QByteArray data)
+{
+  output->stop();
+  dataBuffer.clear();
+  dataBuffer.append(data);
+  buffer->open(QIODevice::ReadOnly);
+}
+
 void QAudioPlayer::Play()
 {
   output->start(buffer);
 }
 
-void QAudioPlayer::TestPlay()
+void QAudioPlayer::Play(QByteArray data)
 {
-  //chipTune.Pulse(880);
-  chipTune.Pulse(music.Note(0));
-  chipTune.Print();
-  chipTune.Start();
-  output->start(&chipTune);
+  Import(data);
+  Play();
 }
 
 bool QAudioPlayer::CheckDevice()

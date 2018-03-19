@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
+QT       += core gui multimedia xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -33,7 +33,12 @@ SOURCES += \
     soundbuffer.cpp \
     qaudioplayer.cpp \
     nchiptune.cpp \
-    nmusic.cpp
+    qmusicinstrument.cpp \
+    formkeyboard.cpp \
+    wavcontour.cpp \
+    dialogmusicinstrumenttest.cpp \
+    musicplayer.cpp \
+    nmuse.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +49,19 @@ HEADERS += \
     soundbuffer.h \
     qaudioplayer.h \
     nchiptune.h \
-    nmusic.h
+    qmusicinstrument.h \
+    formkeyboard.h \
+    wavcontour.h \
+    dialogmusicinstrumenttest.h \
+    musicplayer.h \
+    nmuse.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    formkeyboard.ui \
+    dialogmusicinstrumenttest.ui
+
+DISTFILES +=
+
+RESOURCES += \
+    resource.qrc

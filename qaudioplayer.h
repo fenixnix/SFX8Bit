@@ -7,7 +7,6 @@
 #include <QDebug>
 #include <vector>
 #include "nchiptune.h"
-#include "nmusic.h"
 
 using namespace std;
 
@@ -19,25 +18,23 @@ public:
 
   QStringList GetAvailableDevices();
   void SetDevice(QString deviceID);
-
+  void Import(QByteArray data);
   void ImportData(vector<float> rawData);
+  void Save(QString fileName);
+  static vector<float> Export(QByteArray data);
 
   void Play();
-
-  void TestPlay();
+  void Play(QByteArray data);
 
   QAudioFormat Format;
 
 private:
   bool CheckDevice();
 
-  QAudioOutput* output;
   QAudioDeviceInfo deviceInfo;
-
-  NMusic music;
-  NChipTune chipTune;
   QBuffer* buffer;
   QByteArray dataBuffer;
+  QAudioOutput* output;
 };
 
 #endif // QAUDIOPLAYER_H

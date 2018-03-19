@@ -189,10 +189,7 @@ float Sfx8Bit::SuperSamplingX8()
         ssample+=sample*env_vol;
     }
     ssample=ssample/8*master_vol;
-
     ssample*=2.0f*sound_vol;
-
-
     if(ssample>1.0f) ssample=1.0f;
     if(ssample<-1.0f) ssample=-1.0f;
 

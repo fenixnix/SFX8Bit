@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "formkeyboard.h"
+#include "dialogmusicinstrumenttest.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,8 +34,14 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_actionKeyboard_triggered();
+
+    void on_actionTune_Test_triggered();
+
 private:
     Ui::MainWindow *ui;
+    FormKeyboard keyboard;
+    DialogMusicInstrumentTest testDlg;
 };
 
 #endif // MAINWINDOW_H
