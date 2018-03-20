@@ -49,7 +49,7 @@ void Sfx8Bit::Reset()
     fmaxperiod=100.0/(p_freq_limit*p_freq_limit+0.001);
     fslide=1.0-pow((double)p_freq_ramp, 3.0)*0.01;
     fdslide=-pow((double)p_freq_dramp, 3.0)*0.000001;
-    square_duty=0.5f-p_duty*0.5f;
+    WavBase::duty=0.5f-p_duty*0.5f;
     square_slide=-p_duty_ramp*0.00005f;
     if(p_arp_mod>=0.0f)
         arp_mod=1.0-pow((double)p_arp_mod, 2.0)*0.9;
@@ -66,8 +66,6 @@ void Sfx8Bit::Reset()
     vib_phase=0.0f;
     vib_speed=pow(p_vib_speed, 2.0f)*0.01f;
     vib_amp=p_vib_strength*0.5f;
-    // reset envelope
-    envelope.Reset();
 
     fphase=pow(p_pha_offset, 2.0f)*1020.0f;
     if(p_pha_offset<0.0f) fphase=-fphase;
@@ -78,57 +76,10 @@ void Sfx8Bit::Reset()
     for(int i=0;i<1024;i++)
         phaser_buffer[i]=0.0f;
 
-    for(int i=0;i<32;i++)
-        noise_buffer[i]=frnd(2.0f)-1.0f;
-
     rep_time=0;
     rep_limit=(int)(pow(1.0f-p_repeat_speed, 2.0f)*20000+32);
     if(p_repeat_speed==0.0f)
       rep_limit=0;
-}
-
-void Sfx8Bit::ResetWithOutEnvelope()
-{
-  phase=0;
-  fperiod=100.0/(p_base_freq*p_base_freq+0.001);
-  period=(int)fperiod;
-  fmaxperiod=100.0/(p_freq_limit*p_freq_limit+0.001);
-  fslide=1.0-pow((double)p_freq_ramp, 3.0)*0.01;
-  fdslide=-pow((double)p_freq_dramp, 3.0)*0.000001;
-  square_duty=0.5f-p_duty*0.5f;
-  square_slide=-p_duty_ramp*0.00005f;
-  if(p_arp_mod>=0.0f)
-      arp_mod=1.0-pow((double)p_arp_mod, 2.0)*0.9;
-  else
-      arp_mod=1.0+pow((double)p_arp_mod, 2.0)*10.0;
-  arp_time=0;
-  arp_limit=(int)(pow(1.0f-p_arp_speed, 2.0f)*20000+32);
-  if(p_arp_speed==1.0f)
-      arp_limit=0;
-
-  filter.Reset();
-
-  // reset vibrato
-  vib_phase=0.0f;
-  vib_speed=pow(p_vib_speed, 2.0f)*0.01f;
-  vib_amp=p_vib_strength*0.5f;
-
-  fphase=pow(p_pha_offset, 2.0f)*1020.0f;
-  if(p_pha_offset<0.0f) fphase=-fphase;
-  fdphase=pow(p_pha_ramp, 2.0f)*1.0f;
-  if(p_pha_ramp<0.0f) fdphase=-fdphase;
-  iphase=abs((int)fphase);
-  ipp=0;
-  for(int i=0;i<1024;i++)
-      phaser_buffer[i]=0.0f;
-
-  for(int i=0;i<32;i++)
-      noise_buffer[i]=frnd(2.0f)-1.0f;
-
-  rep_time=0;
-  rep_limit=(int)(pow(1.0f-p_repeat_speed, 2.0f)*20000+32);
-  if(p_repeat_speed==0.0f)
-    rep_limit=0;
 }
 
 void Sfx8Bit::Randomize()
@@ -181,30 +132,6 @@ void Sfx8Bit::Mutate()
     if(rnd(1)) p_arp_mod+=frnd(0.1f)-0.05f;
 }
 
-float Sfx8Bit::BaseWave(int wave_type, float fp)
-{
-    float tmpSample = 0;
-    switch(wave_type)
-    {
-    case 0: // square
-        if(fp<square_duty)
-            tmpSample=0.5f;
-        else
-            tmpSample=-0.5f;
-        break;
-    case 1: // sawtooth
-        tmpSample=1.0f-fp*2;
-        break;
-    case 2: // sine
-        tmpSample=(float)sin(fp*2*PI);
-        break;
-    case 3: // noise
-        tmpSample=noise_buffer[phase*32/period];
-        break;
-    }
-    return tmpSample;
-}
-
 float Sfx8Bit::SuperSamplingX8()
 {
     float ssample=0.0f;
@@ -217,12 +144,11 @@ float Sfx8Bit::SuperSamplingX8()
             //				phase=0;
             phase%=period;
             if(wave_type==3)
-                for(int i=0;i<32;i++)
-                    noise_buffer[i]=frnd(2.0f)-1.0f;
+              WavBase::randomNoise();
         }
         // base waveform
         float fp=(float)phase/period;
-        sample = BaseWave(wave_type, fp);
+        sample = WavBase::wave(wave_type, fp);
         sample = filter.Filtration(sample);
 
         // phaser
@@ -244,6 +170,7 @@ void Sfx8Bit::SynthSample(vector<float> &data)
 {
     data.clear();
     Reset();
+    envelope.Reset();
     playing_sample = true;
     for(int i = 0;i<wav_freq*2;i++)
     {
@@ -254,7 +181,7 @@ void Sfx8Bit::SynthSample(vector<float> &data)
         if(rep_limit!=0 && rep_time>=rep_limit)
         {
             rep_time=0;
-            ResetWithOutEnvelope();
+            Reset();
         }
 
         // frequency envelopes/arpeggios
@@ -281,9 +208,8 @@ void Sfx8Bit::SynthSample(vector<float> &data)
         }
         period=(int)rfperiod;
         if(period<8) period=8;
-        square_duty+=square_slide;
-        if(square_duty<0.0f) square_duty=0.0f;
-        if(square_duty>0.5f) square_duty=0.5f;
+        WavBase::duty+=square_slide;
+        WavBase::DutyQuality();
 
         env_vol = envelope.Sampling(playing_sample);
 

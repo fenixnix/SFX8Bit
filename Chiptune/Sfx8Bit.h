@@ -2,8 +2,10 @@
 #define SFX8BIT_H
 
 #include<vector>
+#include "wavbase.h"
 #include "wavfilter.h"
 #include "wavenvelope.h"
+#include "wavcontour.h"
 
 using namespace std;
 
@@ -13,7 +15,6 @@ public:
     Sfx8Bit();
     void Init();
     void Reset();
-    void ResetWithOutEnvelope();
     void Randomize();
     void Mutate();
     void SynthSample(vector<float> &data);
@@ -26,9 +27,9 @@ public:
     void Jump();//type 0
     void Blip_Select();//type 0,1
 
+
 private:
     int wave_type = 0;
-    float BaseWave(int wave_type, float fp);
 
     WavFilter filter;
     WavEnvelope envelope;
@@ -63,7 +64,6 @@ private:
     double fslide;
     double fdslide;
     int period;
-    float square_duty;
     float square_slide;
 
     float env_vol;
@@ -74,7 +74,6 @@ private:
     int iphase;
     float phaser_buffer[1024];
     int ipp;
-    float noise_buffer[32];
 
     float vib_phase;
     float vib_speed;

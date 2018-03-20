@@ -40,10 +40,11 @@ void WavContour::TrapezoidaEnvelope(float t1, float t2, float t3, float maxVal)
 QList<float> WavContour::GetData(int sampleRate)
 {
   QList<float> data;
-  float startTime = 0.0f;
-  float startVol = 0.0f;
-  for(int i = 0;i<contour.size();i++){
-      auto p = contour[i];
+  startTime = 0;
+  startVol = 0;
+
+  for(index = 0;index<contour.size();index++){
+      auto p = contour[index];
 
       int x = sampleRate*(float)p.x();
       float dVol = (float)p.y() - startVol;

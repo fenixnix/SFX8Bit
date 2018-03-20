@@ -11,7 +11,7 @@ class NMuse
 {
 public:
     NMuse();
-    void Init(int base = 261.62557,int div = 12);
+    void Init(int base = 261,int div = 12);
     void LoadModeFile(string fileName);
     vector<string> GetModes();
 

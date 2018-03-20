@@ -1,6 +1,7 @@
 #ifndef WAVENVELOPE_H
 #define WAVENVELOPE_H
 
+#include "wavcontour.h"
 
 class WavEnvelope
 {
@@ -20,6 +21,8 @@ public:
     void Blip_Select();
 
     float Sampling(bool &playing_sample);
+
+    void Setup(WavContour& contour);
 
     float p_env_attack;//"ATTACK TIME"
     float p_env_sustain;//"SUSTAIN TIME"

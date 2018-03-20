@@ -25,6 +25,9 @@ public:
 
 private:
   QList<QPointF> contour;
+  float startTime = 0.0f;
+  float startVol = 0.0f;
+  int index = 0;
 };
 
 #endif // WAVCONTOUR_H
