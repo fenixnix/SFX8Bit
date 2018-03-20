@@ -84,7 +84,51 @@ void Sfx8Bit::Reset()
     rep_time=0;
     rep_limit=(int)(pow(1.0f-p_repeat_speed, 2.0f)*20000+32);
     if(p_repeat_speed==0.0f)
-        rep_limit=0;
+      rep_limit=0;
+}
+
+void Sfx8Bit::ResetWithOutEnvelope()
+{
+  phase=0;
+  fperiod=100.0/(p_base_freq*p_base_freq+0.001);
+  period=(int)fperiod;
+  fmaxperiod=100.0/(p_freq_limit*p_freq_limit+0.001);
+  fslide=1.0-pow((double)p_freq_ramp, 3.0)*0.01;
+  fdslide=-pow((double)p_freq_dramp, 3.0)*0.000001;
+  square_duty=0.5f-p_duty*0.5f;
+  square_slide=-p_duty_ramp*0.00005f;
+  if(p_arp_mod>=0.0f)
+      arp_mod=1.0-pow((double)p_arp_mod, 2.0)*0.9;
+  else
+      arp_mod=1.0+pow((double)p_arp_mod, 2.0)*10.0;
+  arp_time=0;
+  arp_limit=(int)(pow(1.0f-p_arp_speed, 2.0f)*20000+32);
+  if(p_arp_speed==1.0f)
+      arp_limit=0;
+
+  filter.Reset();
+
+  // reset vibrato
+  vib_phase=0.0f;
+  vib_speed=pow(p_vib_speed, 2.0f)*0.01f;
+  vib_amp=p_vib_strength*0.5f;
+
+  fphase=pow(p_pha_offset, 2.0f)*1020.0f;
+  if(p_pha_offset<0.0f) fphase=-fphase;
+  fdphase=pow(p_pha_ramp, 2.0f)*1.0f;
+  if(p_pha_ramp<0.0f) fdphase=-fdphase;
+  iphase=abs((int)fphase);
+  ipp=0;
+  for(int i=0;i<1024;i++)
+      phaser_buffer[i]=0.0f;
+
+  for(int i=0;i<32;i++)
+      noise_buffer[i]=frnd(2.0f)-1.0f;
+
+  rep_time=0;
+  rep_limit=(int)(pow(1.0f-p_repeat_speed, 2.0f)*20000+32);
+  if(p_repeat_speed==0.0f)
+    rep_limit=0;
 }
 
 void Sfx8Bit::Randomize()
@@ -210,7 +254,7 @@ void Sfx8Bit::SynthSample(vector<float> &data)
         if(rep_limit!=0 && rep_time>=rep_limit)
         {
             rep_time=0;
-            Reset();
+            ResetWithOutEnvelope();
         }
 
         // frequency envelopes/arpeggios

@@ -13,6 +13,7 @@ public:
     Sfx8Bit();
     void Init();
     void Reset();
+    void ResetWithOutEnvelope();
     void Randomize();
     void Mutate();
     void SynthSample(vector<float> &data);

@@ -20,6 +20,15 @@ void WavContour::Push(float x, float y)
   Push(QPointF(x,y));
 }
 
+void WavContour::Sfx8BitContour(float attack, float sustain, float decay, float punch)
+{
+  Clear();
+  Push(attack,1);
+  Push(0,punch*2+1);
+  Push(sustain,1);
+  Push(decay,0);
+}
+
 void WavContour::TrapezoidaEnvelope(float t1, float t2, float t3, float maxVal)
 {
   Clear();
